@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <h1>Timezone</h1>
+    <form id="timezone">
+      <input type="text" id="area" placeholder="Area" />
+      <input type="text" id="location" placeholder="Location" />
+      <input type="button" onclick="getTimes()" value = "Get Datetime!">
+    </form>
+    <div id="times">
+    </div>
+</body>
+<script>
+    async function getTimes(){
+        const area = document.getElementById("area");
+        const location = document.getElementById("location");
+        const times = document.getElementById("times");
+        try{
+            setInterval(async () =>{
+            let res = await fetch(`http://localhost:8080/${area.value}/${location.value}`);
+            let data = await res.json();
+            let time = document.createElement('div');
+            time.innerHTML = `
+                <p>Local time: ${new Date().toString()}</p>
+                <p>From API: ${data.datetime}</p>
+                `;
+            times.appendChild(time);
+           }
+        ,1000
+        )}
+        catch(e){
+            alert(e);
+        }
+    }
+</script>
+</html>

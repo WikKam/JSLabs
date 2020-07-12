@@ -1,0 +1,79 @@
+<html>
+<head>
+</head>
+<body>
+    <form>
+        <input type = "number" id = "licznik" value = "10">
+        <input type = "button" id= "start" value = "Start!">
+    </form>
+  <count-er></count-er>
+  <count-er></count-er>
+  <count-er></count-er>
+  <count-er></count-er>
+  <count-er></count-er>
+  <count-er></count-er>
+  <count-er></count-er>
+  <count-er></count-er>
+  <count-er></count-er>
+  <count-er></count-er>
+  <count-er></count-er>
+  <count-er></count-er>
+  <count-er></count-er>
+  <count-er></count-er>
+  <script>
+    class CustomComponent extends HTMLElement{
+    constructor() {
+        super();
+        this.shadow = this.attachShadow({ mode: "open" });
+        this.number = document.getElementById("licznik");
+        this.button = document.getElementById("start")
+        this.button.addEventListener("click", e => {
+            this.click();
+        });
+      }
+      connectedCallback(){
+        this.count = 0;
+        this.render()
+      }
+      get count(){
+          return this.getAttribute("count");
+      }
+
+      set count(val){
+          this.setAttribute("count", val)
+      }
+
+      static get observedAttributes(){
+          return ["count"]
+      }
+
+      attributeChangedCallback(prop, oldVal, newVal){
+        if(prop == 'count')
+        if(newVal >= 0) this.render();
+      }
+
+      click(){
+        this.count = this.number.value;
+        
+        setInterval(() => {
+            if(this.count > 0){
+              this.render();
+            }
+            if(this.count == 0){
+                this.number.value = 0
+            }
+            this.count--;
+        }, 1000);
+      }
+
+      render(){
+          this.shadow.innerHTML = `
+          <span> ${this.count} </span>
+          `;
+      }
+}
+
+customElements.define("count-er", CustomComponent);
+    </script>
+</body>
+</html>

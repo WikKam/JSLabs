@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="pl">
+  <head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet"
+          href="sheet.css"
+          media="screen"
+          type="text/css">
+    <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+    <title>
+      Tytuł strony
+    </title>
+  </head>
+  <body>
+    <nav class = "w3-bar navbar">
+            <div class = "w3-bar-item w3-hide-small">Uczelnia</div>
+            <div class = "w3-bar-item w3-hide-small">Kierunki</div>
+            <div class = "w3-bar-item w3-hide-small">Studenci</div>
+            <a href="javascript:void(0)" class="w3-bar-item w3-button w3-right w3-hide-large w3-hide-medium" 
+            onclick="myFunction()">&#9776;</a>
+    </nav>
+    <nav id="demo" class="w3-bar-block w3-hide w3-hide-large w3-hide-medium">
+        <a href="#" class="w3-bar-item w3-button">Uczelnia</a>
+        <a href="#" class="w3-bar-item w3-button">Kierunki</a>
+        <a href="#" class="w3-bar-item w3-button">Studenci</a>
+    </nav>
+      
+    <div class = 'under'> Wydział IET</div>
+    <div class = 'w3-row main'>
+        <div class = 'w3-quarter w3-container'>
+            <div class = 'elem'>
+                <div class = 'name'>Imie Nazwisko</div>
+                <div class = 'subject'>Kierunek</div>
+                <img class = 'man' src = man.png>
+                <div class = 'desc'>Stopka</div>
+            </div>
+        </div>
+        <div class = 'w3-half  w3-container'>
+            <div class = 'elem'>
+            <div class = 'name'>Imie Nazwisko</div>
+            <div class = 'subject'>Kierunek</div>
+            <img class = 'woman' src = woman.png>
+            <div class = 'desc'>Stopka</div>
+            </div>
+        </div>
+        <div class = 'w3-quarter  w3-container'>
+            <div class = 'elem'>
+                <div class = 'name'>Imie Nazwisko</div>
+                <div class = 'subject'>Kierunek</div>
+                <img class = 'man' src = man.png>
+                <div class = 'desc'>Stopka</div>
+            </div>
+        </div>
+    </div>
+    <script>
+        function myFunction() {
+          var x = document.getElementById("demo");
+          if (x.className.indexOf("w3-show") == -1) {
+            x.className += " w3-show";
+          } else { 
+            x.className = x.className.replace(" w3-show", "");
+          }
+        }
+    </script>
+  </body>
+</html>

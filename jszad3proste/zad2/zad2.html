@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <link href="style.css"rel="stylesheet"></link>
+    <script src = https://canvasjs.com/assets/script/canvasjs.min.js></script>
+  </head>
+
+  <body>
+
+    <span id="radio-group">
+      <input class = "func" id="use-blocking-js" type="radio" name="worker1" value="use-blocking-js">Use blocking call in main thread</input>
+      <input class = "func" id="use-request-animation-frame" type="radio" name="worker2" value="request-animation-frame">Use requestAnimationFrame</input>
+      <input class = "func" id="use-worker" type="radio" name="worker3" value="use-worker">Use a worker</input>
+      <input class = "func" id="use-interval" type="radio" name="worker4" value="interval">Use setInterval</input>
+      <input class = "func" id="use-timeout" type="radio" name="worker5" value="timeout">Use setTimeout</input>
+
+    </span>
+
+   <input id ="pointless-computations" type="button" name="pointless-computations" value="Do pointless computations!" />
+
+   <input id ="start-stop" type="button" name="start-stop" value="Start animations" />
+
+    <div id="container" class = "started">
+      <div class="moving-box"></div>
+    </div>
+    <div id="chartContainer" style="height: 300px; width: 100%;"></div>
+    <script type="text/javascript" src="script.js"></script>
+  </body>
+
+</html>

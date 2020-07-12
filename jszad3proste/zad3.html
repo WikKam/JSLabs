@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset= "UFT-8">
+        <meta name = viewport content="width=device-width, initial-scale=1.0">
+    </head>
+    <body>
+    <form>
+        <input type = "number" id = "licznik" value = "10">
+        <input type = "button" id= "start" value = "Start!">
+    </form>
+    <span>0</span><span>0</span><span>0</span><span>0</span><span>0</span><span>0</span>
+    <span>0</span><span>0</span><span>0</span><span>0</span><span>0</span><span>0</span>
+    <span>0</span><span>0</span><span>0</span><span>0</span><span>0</span><span>0</span>
+    <span>0</span><span>0</span><span>0</span><span>0</span><span>0</span><span>0</span>
+    </body>
+    <script>
+        let input = document.getElementById("licznik")
+        let spans = document.getElementsByTagName("span")
+        let counter =  10
+        input.value = counter
+        document.getElementById("start").onclick = function(){
+            counter = input.value
+            count()
+        }
+         function count(){
+            if(!counter){
+                input.value = 0
+            }
+            if(counter >= 0){
+                Array.from(spans).forEach(span => {
+                    span.textContent = counter
+                })
+            }
+            counter--;
+            window.setTimeout(count,1000)
+        }
+    </script>
+</html>

@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="pl">
+  <head>
+    <meta charset="UTF-8">
+    <title>
+      Page title
+    </title>
+  </head>
+  <body>
+    <main>
+      <h1>
+        Płótno
+      </h1>
+      <h1>
+        Canvas
+      </h1>
+      <canvas id="rectangle"
+              width="200"
+              height="300"
+              >
+        Wygląda na to, że twoja przeglądarka nie obsługuje elementu "canvas" / It looks like your browser does not support the "canvas" element
+      </canvas>
+      <canvas id = "circle"
+              width="200"
+              height="200"
+              >
+        Wygląda na to, że twoja przeglądarka nie obsługuje elementu "canvas" / It looks like your browser does not support the "canvas" element
+      </canvas>
+      <canvas id = 'triangle'
+      width="200"
+      height="200"
+      >
+    Wygląda na to, że twoja przeglądarka nie obsługuje elementu "canvas" / It looks like your browser does not support the "canvas" element
+    </canvas>
+      <script>
+            var canvas = document.getElementById('canvas');
+            var ctx = canvas.getContext('2d');
+            ctx.fillText("Hello World", 10, 50); //Wykreślenie podanego tekstu na płótnie / Drawing given text on canvas
+        </script>
+        <script>
+            var canvasElement = document.getElementById('triangle');
+            var context = canvasElement.getContext("2d");
+            context.beginPath();
+            context.moveTo(100, 100);
+            context.lineTo(100, 200);
+            context.lineTo(200, 200);
+            context.closePath();
+            context.lineWidth = 1;
+            context.strokeStyle = 'black';
+            context.stroke();
+        </script>
+      <script>
+        var c = document.getElementById("circle");
+        var ctx = c.getContext("2d");
+        ctx.beginPath();
+        ctx.arc(100, 75, 50, 0, 2 * Math.PI);
+        ctx.stroke();
+      </script>
+      <script>
+        var c = document.getElementById("rectangle");
+        var ctx = c.getContext("2d");
+        ctx.beginPath();
+        ctx.rect(20, 20, 150, 100);
+        ctx.stroke();
+      </script>
+    </main>
+  </body>
+</html>

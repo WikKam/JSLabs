@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel = 'stylesheet' href="style.css">
+    <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+</head>
+<body>
+    <div>
+        <span>Twoje punkty: <span id = 'playerPoints'>0</span></span>
+        <span>Punkty Komputera: <span id = 'computerPoints'>0</span></span>
+        <button id = 'reset'>Zagraj ponownie</button>
+    <table>
+        <tr>
+            <td id = 1></td>
+            <td id = 2></td>
+            <td id = 3></td>
+        </tr>
+        <tr>
+            <td id = 4></td>
+            <td id = 5></td>
+            <td id = 6></td>
+        </tr>
+        <tr>
+            <td id = 7></td>
+            <td id = 8></td>
+            <td id = 9></td>
+        </tr>
+    </table>
+    </div>
+    <script>
+        $(document).ready(function(){
+            function addPoints(who){
+            let currVal = parseInt($(who).text())
+            $(who).text(currVal + 1);
+        }
+        function reset(){
+            $('td').text('');
+            $('td').click(onClick)
+            currentTurn = 'O';
+            taken = new Set();
+            fields = [['-','-','-'],['-','-','-'],['-','-','-']];
+            $('#reset').hide();
+        }
+        $('#reset').click(reset);
+        $('#reset').hide();
+        function checkIsGameEnded(){    
+            for(let i = 0; i < 3; i++ ){
+                if(fields[i][0] == currentTurn &&
+                fields[i][0] == fields[i][1] && fields[i][1] == fields[i][2])
+                return 1;
+            }
+            for(let i = 0; i < 3; i++){
+                if(fields[0][i] == currentTurn &&
+                fields[0][i] == fields[1][i] && fields[1][i] == fields[2][i])
+                return 1;
+            }
+            if (fields[1][1] == '-')
+                return -1;
+            if(fields[0][0] == fields[1][1] && fields[1][1] == fields[2][2])
+                return 1;
+            if(fields[2][0] == fields[1][1] && fields[1][1] == fields[0][2])
+                return 1;
+
+            if(taken.size == 9){
+                return 0;
+            }
+            return -1;
+        }
+        var currentTurn = 'O';
+        var taken = new Set();
+        var fields = [['-','-','-'],['-','-','-'],['-','-','-']];
+        function processComputerMove(){
+            let id = Math.floor(Math.random() * 8) + 1
+            while(taken.has(id)){
+                id = Math.floor(Math.random() * 8) + 1
+            }
+            $(`#${id}`).text('X');
+            taken.add(id);
+            fields[Math.floor((id-1)/3)][ (id-1) %3 ] = currentTurn
+            if(checkIsGameEnded() == 1){
+                        alert('Przegrałeś!');
+                        $('td').off()
+                        addPoints('#computerPoints')
+                        $('#reset').show();
+                        return;
+                        
+                    }        
+            else if(checkIsGameEnded() == 0){
+                        alert('Remis');
+                        $('td').off()
+                        $('#reset').show()
+                        return;
+                    }
+            currentTurn = getOpposing(currentTurn);
+        }
+
+        function getOpposing(sign){
+            return sign == 'X' ? 'O' : 'X';
+        }
+
+        function onClick(){
+                    let id = parseInt($(this).attr('id'))
+                    if(!taken.has(id)){
+                    $(this).text(currentTurn);
+                    taken.add(id);
+                    fields[Math.floor((id-1)/3)][(id-1)%3] = currentTurn
+                    if(checkIsGameEnded() == 1){
+                        alert('Wygrałeś!');
+                        $('td').off()
+                        addPoints('#playerPoints');
+                        $('#reset').show()
+                        return;
+                    }
+                    else if(checkIsGameEnded() == 0){
+                        alert('Remis');
+                        $('#reset').show()
+                        $('td').off()
+                        return;
+                    }
+                    for(let i = 0; i < 3; i++){
+                        for(let j = 0; j < 3; j++){
+                            console.log(fields[i][j]);
+                        }
+                    }
+                    currentTurn = getOpposing(currentTurn);
+                    processComputerMove();
+                }
+            }
+
+            $('td').click(onClick)
+        })
+    </script>
+</body>
+</html>

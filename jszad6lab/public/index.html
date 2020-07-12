@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@2.8.0"></script>
+</head>
+<body>
+    <form>
+        <label for = 'radios'>Z ilu przedmiotów uzyskiwać dane?</label>
+        <div id = "radios">
+            <label for = "one">Jendego</label>
+            <input name = 'amount' type = 'radio' id = 'one'>
+            <label for = "two">Dwóch</label>
+            <input name = 'amount'  type = 'radio' id = 'two'>
+            <label for = "three">Trzech</label>
+            <input name = 'amount'  type = 'radio' id = 'three'>
+        </div>
+        <div id = "marksNo">
+            <label for = "noOfMarks">Ilość ocen:</label>
+            <input type = "number" id="noOfMarks">
+        </div>
+        <input type="button" name="button" id="button" value="Potwierdź!" onclick = "onClick()">
+    </form>
+    <div id = "histogram">
+        <canvas id = chart1></canvas>
+        <canvas id = chart2></canvas>
+        <canvas id = chart3></canvas>
+    </div>
+    <script>
+        const histograms = document.getElementById("histogram");
+        var one = document.getElementById('one');
+        var two = document.getElementById('two');
+        var three = document.getElementById('three');
+        const marks = document.getElementById('noOfMarks');
+        const labels = ['2.0','3.0', '3.5', '4.0', '4.5', '5.0'];
+        const charts = [];
+        function clean(){
+            let ctx1 = getChart(1).getContext('2d');
+            let ctx2 = getChart(2).getContext('2d');
+            let ctx3 = getChart(3).getContext('2d');
+            ctx1.clearRect(0, 0, getChart(1).width, getChart(1).height);
+            ctx2.clearRect(0, 0, getChart(2).width, getChart(2).height);
+            ctx3.clearRect(0, 0, getChart(3).width, getChart(3).height);
+
+        }
+        function getChart(index){
+            return document.getElementById(`chart${index}`);
+        }
+
+        function getDataArr(data){
+            let ret = [];
+            data.forEach(mark => {
+                ret.push(mark[1]);
+            })
+            console.log(ret);
+            return ret;
+        }
+
+        function calculateOccurances(data){
+            let map = new Map();
+            labels.forEach(label => map.set(label, 0))
+            data.forEach(element => {
+                if (map.has(element)){
+                    current = map.get(element);
+                    map.set(element, current + 1);
+                }
+            });
+            return [...map.entries()].sort()
+        }
+        function initCharts(){
+            for(let i = 0; i< 3; i++){
+                    var currentChart = getChart(i + 1);
+                    let parsed = []
+                    console.log(parsed);
+                    let chart = new Chart(getChart(i+1),{
+                        type: 'bar',
+                     data: {
+                        labels: labels,
+                        datasets: [{
+                        label: '# of Marks',
+                        data: getDataArr(parsed),
+                        backgroundColor: [
+                            'rgba(255, 99, 132, 0.2)',
+                            'rgba(54, 162, 235, 0.2)',
+                            'rgba(255, 206, 86, 0.2)',
+                            'rgba(75, 192, 192, 0.2)',
+                            'rgba(153, 102, 255, 0.2)',
+                            'rgba(255, 159, 64, 0.2)'
+                        ],
+                        borderColor: [
+                            'rgba(255, 99, 132, 1)',
+                            'rgba(54, 162, 235, 1)',
+                            'rgba(255, 206, 86, 1)',
+                            'rgba(75, 192, 192, 1)',
+                            'rgba(153, 102, 255, 1)',
+                            'rgba(255, 159, 64, 1)'
+                        ],
+                        borderWidth: 1
+                    }]
+                    },
+                    options: {
+                        scales: {
+                            yAxes: [{
+                                ticks: {
+                                    beginAtZero: true
+                                }
+                            }]
+                        },
+                        title: {
+                        display: true,
+                        text: 'No data yet'
+                    }
+                    }
+                    })
+                    charts.push(chart);
+                }
+        }
+        initCharts();
+        function onClick(){
+            setInterval(fetchData,5000);
+        }
+        async function fetchData() {
+            let numberOfSubjects = one.checked ? 1 : two.checked ? 2 : 3;
+            let numerOfMarks =  parseInt(marks.value);
+            const req = {
+                method: 'post',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({
+                    numberOfSubjects: numberOfSubjects, 
+                    numberOfMarks: numerOfMarks
+                }) 
+            };
+            try{
+                res = await fetch(`/submit`,req);
+                if (!res.ok) {
+                    throw Error(res.statusText);
+                }
+                var data = await res.json();
+                console.log(data);
+
+            }
+            catch(error){
+                window.alert('Looks like there was a problem: \n', error);                
+            }
+            finally{
+                for(let i = 0; i < data.length; i++){
+                    let parsed = calculateOccurances(data[i].marks);
+                    let parsedDataArr = getDataArr(parsed);
+                    charts[i].data.datasets.forEach(dataset => {
+                        dataset.data = parsedDataArr;
+                    })
+                    charts[i].options.title.text = data[i].subject
+                    charts[i].update();
+                }
+            }
+        }
+    </script>
+</body>
+</html>

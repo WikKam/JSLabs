@@ -1,0 +1,56 @@
+body{
+    margin:0;
+}
+.navbar{
+    margin: 0px;
+    color: whitesmoke;
+    background-color: darkslategrey;
+    font-size: large;
+}
+ul{
+    display: inline;
+}
+li{
+    display: inline;
+    margin-right: 5%;
+}
+.under{
+    padding-left: 30%;
+    font-size: xx-large;
+    background-color: whitesmoke;
+}
+img{
+    display: block;
+    margin: auto;
+}
+.man{
+    width: 50%;
+    height: auto;
+}
+.woman{
+    width:60%;
+    height: auto;
+}
+.main{
+    justify-self: center;
+}
+.elem{
+    
+    background-color: darkslategrey;
+    margin-bottom: 5%;
+}
+.name, .subject, .desc{
+    color: whitesmoke;
+    background-color: darkslategray;
+    padding: 2%;
+}
+.desc{
+    background-color: gray;
+    color:black;
+}
+@media screen and (max-width:600px){
+    .under{
+      padding-left: 0;
+      text-align: center;
+    }
+}

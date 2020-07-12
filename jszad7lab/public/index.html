@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+</head>
+<body>
+    <form>
+        <input id = 'name' type = 'text' placeholder="Nazwa pliku">
+        <input id = 'lines' type = 'text' placeholder = "Linie">
+    </form>
+    <div id = result>
+
+    </div>
+</body>
+<script>
+    var nameValue = $('#name').val();
+    var linesValue = $('#lines').val();
+
+    function fetchData(){
+        let parsedLines = linesValue.split(" ");
+        let data = {
+            name: nameValue,
+            lines: parsedLines
+        }
+        $.ajax({
+            type: "POST",
+            url: "http://localhost:3000/data",
+            data: "data",
+            dataType: "json",
+            success: function (response) {
+                
+            }
+        });
+    }
+
+    $(document).ready(function(){
+        $('#name').keyup(function(){
+            nameValue = $('#name').val();
+            fetchData();
+        })
+        $('#lines').keyup(function(){
+            linesValue = $('#lines').val();
+            fetchData();
+        })
+    })
+</script>
+</html>

@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="pl">
+  <head>
+    <meta charset="UTF-8">
+    <title>
+      Tytuł strony
+    </title>
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link rel="stylesheet"
+          href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css"
+          integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk"
+          crossorigin="anonymous">
+    <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"
+          integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo"
+          crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"
+          integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI"
+          crossorigin="anonymous"></script>
+  </head>
+  <body>
+    <script>
+    var currentText;
+    var currentColor;
+    $(document).ready(function () {
+        $('#elementSPAN').mouseenter(function(){
+            console.log('mouse entered');
+            currentText =  $(this).text();
+            currentColor = $(this).css('background-color');
+            $(this).text(function(){
+                let number = parseInt(currentText);
+                return isNaN(number) ? 'Nie-liczba' : number + 10;
+            })
+            $(this).css('background-color', 'red');
+        });
+        $('#elementSPAN').mouseleave(function(){
+            console.log('mouse left');
+            $(this).css('background-color', currentColor);
+            $(this).text(function(){return currentText});
+        })
+        $('#elementSPAN').click(function(){
+            $(this).animate({
+                height: '250px',
+                width: '250px'
+            },500)
+        })
+    });
+    </script>
+    <main>
+      Text <span id='elementSPAN'>123</span>
+    </main>
+  </body>
+</html>

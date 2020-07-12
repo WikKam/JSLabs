@@ -1,0 +1,21 @@
+{
+  "name": "zad1",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "mocha",
+    "start": "node app2.js"
+  },
+  "author": "Wiktor Kamiński",
+  "license": "ISC",
+  "dependencies": {
+    "express": "^4.17.1",
+    "morgan": "^1.10.0",
+    "pug": "^2.0.4"
+  },
+  "devDependencies": {
+    "mocha": "^7.1.2",
+    "supertest": "^4.0.2"
+  }
+}

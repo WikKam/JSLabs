@@ -1,0 +1,25 @@
+<html>
+  <body onLoad="
+  //console.log('Tekst 1');
+  //window.alert('Tekst 2');
+  //document.write('Tekst 3'); //document.write po załadowaniu dokumentu zastępuje jego wartość
+">
+    <div>Treść dokumentu HTML przed skryptem</div>
+    <!--<script>
+      console.log('Tekst 1'); //w konsoli
+      window.alert('Tekst 2'); //w popupie
+      document.write('Tekst 3'); //w zawartości dokumentu
+    </script>-->
+    <!--<script>
+        let temp = window.prompt("Tekst1","Tekst2"); //Nazwa okienka, placeholder w textboxie
+        console.log(typeof temp);//zawsze string, chyba, że wciśnięte anuluj, wtedy object
+      </script>-->
+    <div>Treść dokumentu HTML po skrypcie</div>
+    <form>
+        <input name="pole_tekstowe" type="text">
+        <input type="button" value="Wypisz" onclick="onClick()">
+    </form>
+    <script src="script1.js">
+    </script>
+  </body>
+</html>

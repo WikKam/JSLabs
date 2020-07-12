@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title>Gamedev Canvas Workshop</title>
+    <link rel = stylesheet href="style.css">
+</head>
+<body>
+<div id = "container">
+<div>
+    <game-result player1= 'none' player2= 'none' player3= 'none' result1='0'
+result2='0' result3='0'></game-result>
+    <form>
+        <label for="bspeed">Ball speed</label><br>
+        <input type="number" id="bspeed" name="bspeed"><br>
+        <label for="cspeed">Counter speed (ms)</label><br>
+        <input type="number" id="cspeed" name="cspeed"><br>
+        <label for="squares">Squares amount</label><br>
+        <input type="number" id="squares" name="squares"><br>
+        <button id = "confirm" type="button">Start Game!</button>
+      </form>
+</div>
+<game-panel time='180' speed = '3' squaresAmount = "5"></game-panel>
+<current-counter time='180' points='0'></current-counter>
+</div>
+<script src = script.js>
+</script>
+</body>
+</html>
